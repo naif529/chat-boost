@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>তথ্য কেন্দ্র</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+        }
+        .search-box {
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode {
+            background-color: #333;
+            color: white;
+        }
+        .dark-mode .content {
+            background-color: #555;
+            color: white;
+        }
+        .toggle-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffc107;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">📌 তথ্য কেন্দ্র - সকল প্রয়োজনীয় তথ্য এক জায়গায়</div>
+
+    <div class="search-box">
+        <input type="text" id="search" placeholder="আপনার তথ্য লিখুন...">
+        <button onclick="searchInfo()">🔍 খুঁজুন</button>
+    </div>
+
+    <div class="content" id="info-content">
+        <h2>স্বাগতম!</h2>
+        <p>এখানে তুমি স্বাস্থ্য, শিক্ষা, প্রযুক্তি, খবর এবং আবহাওয়ার তথ্য পাবে।</p>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleDarkMode()">🌙 ডার্ক মোড চালু করুন</button>
+
+    <script>
+        function searchInfo() {
+            var searchQuery = document.getElementById("search").value.toLowerCase();
+            var contentDiv = document.getElementById("info-content");
+
+            var infoData = {
+                "স্বাস্থ্য": "💊 স্বাস্থ্য: সঠিক খাদ্যাভ্যাস ও শরীরচর্চা সুস্থতার চাবিকাঠি।",
+                "শিক্ষা": "📚 শিক্ষা: শিক্ষাই জাতির মেরুদণ্ড। প্রতিদিন কিছু না কিছু শেখার অভ্যাস গড়ে তুলুন।",
+                "প্রযুক্তি": "💻 প্রযুক্তি: AI, IoT, Blockchain ইত্যাদি আধুনিক যুগের ভবিষ্যৎ।",
+                "খবর": "📰 খবর: দেশ-বিদেশের আপডেটেড তথ্য জানতে নিউজপেপার বা অনলাইন পোর্টাল পড়ুন।",
+                "আবহাওয়া": "🌦 আবহাওয়া: আজকের আবহাওয়া জানার জন্য ওয়েদার অ্যাপ বা ওয়েবসাইট দেখুন।"
+            };
+
+            if (infoData[searchQuery]) {
+                contentDiv.innerHTML = <h2>${searchQuery} সম্পর্কিত তথ্য</h2><p>${infoData[searchQuery]}</p>;
+            } else {
+                contentDiv.innerHTML = <h2>দুঃখিত!</h2><p>আপনার অনুসন্ধানের জন্য তথ্য পাওয়া যায়নি।</p>;
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাধারণ চ্যাটবট</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            background-color: #fafafa;
+        }
+
+        .chat-box .message {
+            margin-bottom: 10px;
+        }
+
+        .chat-box .user-msg {
+            text-align: right;
+            color: #2c3e50;
+        }
+
+        .chat-box .bot-msg {
+            text-align: left;
+            color: #16a085;
+        }
+
+        .input-area {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .input-area button {
+            background-color: #16a085;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #1abc9c;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- চ্যাট বার্তা এখানে আসবে -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="আপনার প্রশ্ন লিখুন..." />
+            <button onclick="sendMessage()">পাঠান</button>
+        </div>
+    </div>
+
+    <script>
+        // স্ট্যাটিক উত্তরগুলি
+        const responses = {
+            "তোমার নাম কী?": "আমার নাম চ্যাটবট।",
+            "তুমি কেমন আছো?": "আমি ভালো আছি, ধন্যবাদ!",
+            "বাংলাদেশের রাজধানী কী?": "ঢাকা",
+            "তুমি কি মানুষ?": "না, আমি একটি কম্পিউটার প্রোগ্রাম।","তোমার পছন্দের রঙ কি?":"আমার কোনো পছন্দের রঙ নাই। তবে তোমার পছন্দের রঙই আমার পছন্দের রঙ। "
+        };
+
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return;
+
+            // ইউজারের মেসেজ
+            appendMessage(userInput, 'user-msg');
+
+            // চ্যাটবটের উত্তর
+            const botResponse = getBotResponse(userInput);
+            appendMessage(botResponse, 'bot-msg');
+
+            // ইনপুট ফিল্ড ক্লিয়ার করা
+            document.getElementById('user-input').value = '';
+        }
+
+        function appendMessage(message, sender) {
+            const chatBox = document.getElementById('chat-box');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // স্ক্রল নিচে নিয়ে আসা
+        }
+
+        function getBotResponse(userInput) {
+            // ডেটাবেসে না থাকলে ডিফল্ট উত্তর
+            const defaultResponse = "দুঃখিত, আমি আপনার প্রশ্ন বুঝতে পারছি না।";
+
+            // ব্যবহারকারীর প্রশ্ন অনুযায়ী উত্তর খুঁজে বের করা
+            const response = responses[userInput.trim()];
+            return response ? response : defaultResponse;
+        }
+    </script>
+</body>
+</html>
